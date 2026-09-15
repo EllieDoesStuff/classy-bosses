@@ -1,0 +1,5 @@
+<entities anm2root="gfx/" version="5">
+
+    <entity anm2path="tophat_nostar.anm2" id="1000" variant="2096" name="Top Hat" />
+
+</entities>
