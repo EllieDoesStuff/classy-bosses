@@ -1,2 +1,2 @@
 # classy bosses
-Isaac mod that adds acessories for bosses in-game.
+Isaac mod that adds accessories for bosses in-game.
