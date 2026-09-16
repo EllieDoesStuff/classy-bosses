@@ -1,5 +1,5 @@
 <entities anm2root="gfx/" version="5">
 
-    <entity anm2path="tophat_nostar.anm2" id="1000" variant="2096" name="Top Hat" />
+    <entity anm2path="skin_machine.anm2" baseHP="0" id="6" variant="2096" name="Skin Machine" collisionDamage="0" collisionMass="3" collisionRadius="12" numGridCollisionPoints="24" friction="1" shadowSize="33"/>
 
 </entities>

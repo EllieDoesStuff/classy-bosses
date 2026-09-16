@@ -1,5 +1,5 @@
 {	"runtime.version": "Lua 5.3",	"workspace.library": [
-		"c:\\Users\\IDEAPAD GAMING\\.vscode\\extensions\\filloax.isaac-lua-api-vscode-1.15.2\\out\\emmylua\\repentogon"
+		"c:\\Users\\IDEAPAD GAMING\\.vscode\\extensions\\filloax.isaac-lua-api-vscode-1.16.0\\out\\emmylua\\repentogon"
 	],	"diagnostics.globals": [
 		"ActionTriggers",
 		"ActiveSlot",
@@ -240,5 +240,6 @@
 		"WispSubType",
 		"XMLData",
 		"XMLNode",
-		"REPENTOGON"
-	],	"runtime.plugin": "c:\\Users\\IDEAPAD GAMING\\.vscode\\extensions\\filloax.isaac-lua-api-vscode-1.15.2\\out\\plugin\\plugin.lua"}
+		"REPENTOGON",
+		"Renderer"
+	],	"runtime.plugin": "c:\\Users\\IDEAPAD GAMING\\.vscode\\extensions\\filloax.isaac-lua-api-vscode-1.16.0\\out\\plugin\\plugin.lua"}

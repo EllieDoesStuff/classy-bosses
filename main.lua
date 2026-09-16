@@ -23,6 +23,89 @@ local BLOAT_VARIANT = 1
 local BLOAT_SUBTYPE = 0
 local BLOAT_SUBTYPE1 = 1
 
+
+
+local SKIN_MACHINE_ID = 6
+local SKIN_MACHINE_VARIANT = 2096
+
+local sfx = SFXManager()
+
+local SOUND_SPIN = Isaac.GetSoundIdByName("Spin")
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function(_, isContinued)
+    if not isContinued then
+        spawnedRoomIndexes = {}
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
+    local game = Game()
+    local level = game:GetLevel()
+    local roomIndex = level:GetCurrentRoomIndex()
+
+    if level:GetStage() == LevelStage.STAGE1_1 and roomIndex == 84 then
+        local player = Isaac.GetPlayer(0)
+        local playerData = player:GetData()
+        
+        if playerData.SkinMachineSpawnedThisRun then return end
+        
+        playerData.SkinMachineSpawnedThisRun = true
+        
+        local activeMachines = Isaac.FindByType(SKIN_MACHINE_ID, SKIN_MACHINE_VARIANT)
+        if #activeMachines == 0 then
+            Isaac.Spawn(SKIN_MACHINE_ID, SKIN_MACHINE_VARIANT, 0, Vector(180, 160), Vector.Zero, nil)
+        end
+    end
+end)
+
+mod:AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, function(_, player, collider, low)
+    if collider.Type == SKIN_MACHINE_ID and collider.Variant == SKIN_MACHINE_VARIANT then
+        local sprite = collider:GetSprite()
+        local data = collider:GetData()
+        local game = Game()
+
+        if not data.TouchCooldown or game:GetFrameCount() >= data.TouchCooldown then
+            data.TouchCooldown = game:GetFrameCount() + 30 
+            
+            sprite:Play("Spin", true)
+            -- sfx:Play(SoundEffect.SOUND_COIN_SLOT)
+            sfx:Play(SOUND_SPIN, 10)
+            -- put logic here
+        end
+
+        return false
+    end
+end)
+
+
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function(_)
+    local bombs = Isaac.FindByType(EntityType.ENTITY_BOMBDROP)
+    local machines = Isaac.FindByType(SKIN_MACHINE_ID, SKIN_MACHINE_VARIANT)
+
+    for _, bomb in ipairs(bombs) do
+        if bomb:ToBomb() and bomb.FrameCount >= 0 then
+            for _, machine in ipairs(machines) do
+                local distance = bomb.Position:Distance(machine.Position)
+                
+                if distance < 90 then
+                    bomb.Kill(bomb)
+                end
+            end
+        end
+    end
+
+    local machines = Isaac.FindByType(SKIN_MACHINE_ID, SKIN_MACHINE_VARIANT)
+    for _, machine in ipairs(machines) do
+        local sprite = machine:GetSprite()
+        
+        if sprite:IsFinished("Spin") then
+            sprite:Play("Idle", true)
+        end
+    end
+end)
+
+
+
 -- rookie ass elseif statements please ignore them </3
 
 -- monstro

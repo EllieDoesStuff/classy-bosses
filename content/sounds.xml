@@ -1,0 +1,5 @@
+<sounds root="sfx/">
+    <sound name="Spin">
+        <sample path="spin.wav"/>
+    </sound>
+</sounds>
